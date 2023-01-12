@@ -1,0 +1,150 @@
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+<div>
+  <h2>Let's Play!</h2>
+  <div>
+    <p>There are 20 candies. You and the computer take turns selecting one, two, or three candies each turn. Whoever takes the last candy wins the game.</p>
+    <div>
+      <p>Candy Remaining: <span id="candy-count">20</span> </p>
+      <p id="candy-count-icons">
+      </p> 
+
+      <p id="computer-count"></p>
+      <button id="one-candy" class = "button">Take One Candy</button>
+      <button id="two-candies" class = "button">Take Two Candies</button>
+      <button id="three-candies" class = "button">Take Three Candies</button>
+      <button id="reset" class = "button2">Reset</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let candyCount = 20;
+  var playerPick = 0;
+
+  function handleChose(num){
+  	for( var x = 0; x<num; x++){
+  		document.getElementById('candy-count-icons').childNodes[candyCount].style.color = "blue";
+  		candyCount = candyCount-1
+  	}
+  	
+    playerPick = num;
+    document.getElementById('candy-count').innerHTML = candyCount;
+    if (candyCount === 0) {
+      alert('You won!');
+    }
+    computerRound()
+  }
+
+  document.getElementById('candy-count').innerHTML = candyCount;
+  for(var x = 0; x<20; x++){
+  	const node = document.createElement("span");
+  	node.classList.add("glyphicon")
+  	node.classList.add("glyphicon-glass")
+  	document.getElementById('candy-count-icons').appendChild(node);
+  }
+
+
+  document.getElementById('one-candy').onclick = function() {
+  	handleChose(1)
+  };
+
+  document.getElementById('two-candies').onclick = function() {
+    handleChose(2)
+  };
+
+  document.getElementById('three-candies').onclick = function() {
+    handleChose(3)
+  };
+
+  document.getElementById('reset').onclick = function() {
+  	candyCount = 20;
+  	playerPick = 0;
+  	computerpick = 0;
+    for( var x = 1; x<=20; x++){
+  		document.getElementById('candy-count-icons').childNodes[x].style.color = "black";
+  	}
+  	document.getElementById('candy-count').innerHTML = candyCount;
+  	document.getElementById('computer-count').innerHTML = "computer Picks " + computerpick
+  };
+
+
+  function computerRound(){
+  	setTimeout(function(){}, 1000); 
+
+  	var computerpick = 0
+  	if(candyCount<4){
+  		computerpick=candyCount
+  	}
+  	else{
+  		computerpick = 4-playerPick
+  	}
+  	for( var x = 0; x<computerpick; x++){
+  		document.getElementById('candy-count-icons').childNodes[candyCount].style.color = "red";
+  		candyCount = candyCount-1
+  	}
+  	document.getElementById('candy-count').innerHTML = candyCount;
+  	document.getElementById('computer-count').innerHTML = "computer Picks " + computerpick
+
+ 	if (candyCount === 0) {
+  		alert('computer won!');
+	}
+
+  }
+
+</script>
+<style>
+div {
+  height: 100%;
+  width: 100%;
+  background-color: powderblue;
+  text-align: center;
+  padding: 15px 15px;
+}
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.button2 {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  background-color: grey;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button2:active {
+  background-color: black;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
+</style>
